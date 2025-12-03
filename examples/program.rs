@@ -1,9 +1,9 @@
 pub mod kcp2k_tests {
-    use kcp2k_rs::kcp2k_client::Kcp2KClient;
-    use kcp2k_rs::kcp2k_common::{Callback, CallbackType, Kcp2KChannel};
-    use kcp2k_rs::kcp2k_config::Kcp2KConfig;
-    use kcp2k_rs::kcp2k_connection::Kcp2kConnection;
-    use kcp2k_rs::kcp2k_server::Kcp2KServer;
+    use kcp2k_rust::kcp2k_client::Kcp2KClient;
+    use kcp2k_rust::kcp2k_common::{Callback, CallbackType, Kcp2KChannel};
+    use kcp2k_rust::kcp2k_config::Kcp2KConfig;
+    use kcp2k_rust::kcp2k_connection::Kcp2kConnection;
+    use kcp2k_rust::kcp2k_server::Kcp2KServer;
     use std::time::{SystemTime, UNIX_EPOCH};
 
     pub fn call_back(conn: &Kcp2kConnection, cb: Callback) {

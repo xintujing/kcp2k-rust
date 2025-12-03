@@ -446,9 +446,17 @@ impl Kcp2kConnection {
                     Ok(())
                 }
                 _ => {
-                    let err = Kcp2KError::InvalidReceive(format!("{}: Received Data message while not Authenticated. Disconnecting the connection.", std::any::type_name::<Self>()));
-                    self.on_error(err.clone());
-                    Err(err)
+                    // it's common to receive unreliable messages before being
+                    // authenticated, for example:
+                    // - random internet noise
+                    // - game server may send an unreliable message after authenticating,
+                    //   and the unreliable message arrives on the client before the
+                    //   'auth_ok' message. this can be avoided by sending a final
+                    //   'ready' message after being authenticated, but this would
+                    //   add another 'round trip time' of latency to the handshake.
+                    //
+                    // it's best to simply ignore invalid unreliable messages here.
+                    Ok(())
                 }
             },
             Kcp2KUnreliableHeader::Disconnect => {

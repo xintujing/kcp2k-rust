@@ -20,7 +20,7 @@ mod tests {
         println!("{}", cb);
 
         let now = SystemTime::now();
-        let seconds_since_epoch = now.duration_since(UNIX_EPOCH).expect("Time went backwards").as_millis(); // as_secs() 返回 u64
+        let seconds_since_epoch = now.duration_since(UNIX_EPOCH).expect("Time went backwards").as_millis();
         // 2. 将 u64 时间戳转换为小端字节序的字节数组
         let time = seconds_since_epoch.to_le_bytes();
 
@@ -55,7 +55,7 @@ mod tests {
 
         let client = Kcp2KClient::new(config, call_back);
 
-        client.connect("10.119.120.22:3100".to_string());
+        client.connect("127.0.0.1:3100".to_string());
 
         loop {
             client.tick();

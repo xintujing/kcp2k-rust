@@ -1,6 +1,6 @@
 [package]
 name = "kcp2k-rust"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2024"
 authors = ["xintujing"]
 description = "A Rust implementation of KCP protocol using revel_cell for thread-safe cell management."

@@ -1,3 +1,4 @@
+#![allow(unused)]
 // 定义 KcpConfig 结构体，用于配置 KCP 服务器
 #[derive(Debug, Clone, Copy)]
 pub struct Kcp2KConfig {
@@ -23,6 +24,7 @@ pub struct Kcp2KConfig {
     pub timeout: u64,
     // 最大重传次数，直到连接被认为是断开的
     pub max_retransmits: u32,
+    // 是否启用可靠的 ping 功能
     pub is_reliable_ping: bool,
 }
 
@@ -31,8 +33,7 @@ impl Kcp2KConfig {
     pub const CHANNEL_HEADER_SIZE: usize = 1;
     pub const COOKIE_HEADER_SIZE: usize = 4;
     pub const METADATA_SIZE_RELIABLE: usize = Self::CHANNEL_HEADER_SIZE + Self::COOKIE_HEADER_SIZE;
-    pub const METADATA_SIZE_UNRELIABLE: usize =
-        Self::CHANNEL_HEADER_SIZE + Self::COOKIE_HEADER_SIZE;
+    pub const METADATA_SIZE_UNRELIABLE: usize = Self::CHANNEL_HEADER_SIZE + Self::COOKIE_HEADER_SIZE;
 }
 
 impl Default for Kcp2KConfig {
@@ -47,11 +48,11 @@ impl Default for Kcp2KConfig {
             interval: 10,
             fast_resend: 0,
             congestion_window: false,
-            send_window_size: 32,     // 假设这是发送窗口的默认大小
-            receive_window_size: 128, // 假设这是接收窗口的默认大小
-            timeout: 2000,            // 假设这是默认的超时时间
-            max_retransmits: 20,      // 假设这是默认的最大重传次数
-            is_reliable_ping: true,   // 假设这是默认的可靠 ping
+            send_window_size: 32,     // 发送窗口的默认大小
+            receive_window_size: 128, // 接收窗口的默认大小
+            timeout: 2000,            // 默认的超时时间
+            max_retransmits: 20,      // 默认的最大重传次数
+            is_reliable_ping: true,   // 默认的可靠 ping
         }
     }
 }

@@ -1,6 +1,6 @@
 [package]
 name = "kcp2k-rust"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2024"
 authors = ["xintujing"]
 description = "A Rust implementation of KCP protocol using revel_cell for thread-safe cell management."
@@ -11,6 +11,11 @@ categories = []
 readme = "README.md"
 license-file = "LICENSE"
 
+exclude = [
+    "./demo-client",
+    "./demo-server"
+]
+
 [dependencies]
 revel_cell = { version = "0.1.3", features = ["thread-safe"] }
 socket2 = "0.6.1"
@@ -18,4 +23,3 @@ kcp = "0.6.0"
 log = "0.4.29"
 
 [dev-dependencies]
-env_logger = "0.11.8"

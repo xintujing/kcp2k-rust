@@ -53,7 +53,7 @@ impl Kcp2KClient {
             && let Some(socket_addr) = local_addr.as_socket()
         {
             self.create_connection(socket_addr.into());
-            info!("[KCP2K] Client connecting to: {:?}", socket_addr);
+            info!("[KCP2K] Client connecting to: {}", addr);
         }
 
         if let Some(connection) = self.connection.value_mut() {

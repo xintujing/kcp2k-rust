@@ -147,7 +147,7 @@ dependencies = [
 
 [[package]]
 name = "kcp2k-rust"
-version = "1.0.2"
+version = "1.0.3"
 dependencies = [
  "kcp",
  "log",

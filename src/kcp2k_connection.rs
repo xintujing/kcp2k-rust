@@ -245,6 +245,16 @@ impl Kcp2kConnection {
             },
         }
     }
+
+    pub fn reliable_max_message_size_unconstrained(mtu: u32, rcv_wnd: u32) -> usize {
+        ((mtu - kcp::KCP_OVERHEAD as u32 - 5) * (rcv_wnd - 1) - 1) as usize
+    }
+    pub fn reliable_max_message_size(mtu: u32, rcv_wnd: u32) -> usize {
+        Self::reliable_max_message_size_unconstrained(mtu, rcv_wnd.min(255))
+    }
+    pub fn unreliable_max_message_size(mtu: u32) -> usize {
+        (mtu - kcp::KCP_OVERHEAD as u32 - 1) as usize
+    }
 }
 
 impl Kcp2kConnection {

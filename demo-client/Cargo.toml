@@ -1,0 +1,8 @@
+[package]
+name = "demo-client"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+kcp2k-rust = { path = ".." }
+env_logger = "0.11.8"

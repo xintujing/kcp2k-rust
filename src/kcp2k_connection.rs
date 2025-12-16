@@ -207,6 +207,13 @@ impl Kcp2kConnection {
         }
     }
 
+    // 发送断开连接通知
+    pub fn send_disconnect(&self) {
+        for _ in 0..5 {
+            let _ = self.send_unreliable(Kcp2KUnreliableHeader::Disconnect, Default::default());
+        }
+    }
+
     // 获取连接 ID
     pub fn connection_id(&self) -> u64 {
         self.id
@@ -331,13 +338,6 @@ impl Kcp2kConnection {
             false => {
                 let _ = self.send_unreliable(Kcp2KUnreliableHeader::Ping, Default::default());
             }
-        }
-    }
-
-    // 发送断开连接通知
-    fn send_disconnect(&self) {
-        for _ in 0..5 {
-            let _ = self.send_unreliable(Kcp2KUnreliableHeader::Disconnect, Default::default());
         }
     }
 

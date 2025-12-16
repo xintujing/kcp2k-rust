@@ -209,9 +209,12 @@ impl Kcp2kConnection {
 
     // 发送断开连接通知
     pub fn send_disconnect(&self) {
+        // 发送多次断开连接通知以确保对方收到
         for _ in 0..5 {
             let _ = self.send_unreliable(Kcp2KUnreliableHeader::Disconnect, Default::default());
         }
+        // 设置状态为断开
+        self.state.set_value(Kcp2KConnectionStates::Disconnected)
     }
 
     // 获取连接 ID
@@ -316,8 +319,6 @@ impl Kcp2kConnection {
         }
         // 发送断开连接通知
         self.send_disconnect();
-        // 设置状态为断开
-        self.state.set_value(Kcp2KConnectionStates::Disconnected);
         // 回调
         (self.callback_func)(
             self,

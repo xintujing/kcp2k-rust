@@ -34,6 +34,11 @@ impl Kcp2K {
             Err(_) => return None,
         };
 
+        // 检查接收数据大小是否超过 MTU
+        if size > self.config.mtu {
+            return None;
+        }
+
         // 3. 将 MaybeUninit 转成 &[u8]（官方安全惯用法）
         let data = unsafe { std::slice::from_raw_parts(buf.as_ptr() as *const u8, size) };
 

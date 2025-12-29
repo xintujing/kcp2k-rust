@@ -24,6 +24,10 @@ impl Kcp2K {
         // 1. 申请接收缓冲区（MTU）
         let mut buf: Vec<MaybeUninit<u8>> = Vec::with_capacity(self.config.mtu);
 
+        unsafe {
+            buf.set_len(self.config.mtu); // 必须
+        }
+
         // 2. 调用 socket2 recv_from（官方签名）
         let (size, addr) = match self.socket.recv_from(&mut buf) {
             Ok(x) => x,

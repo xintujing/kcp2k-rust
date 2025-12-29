@@ -12,17 +12,10 @@ pub(crate) fn call_back(conn: &Kcp2kConnection, cb: Callback) {
     // 2. 将 u64 时间戳转换为小端字节序的字节数组
     let time = seconds_since_epoch.to_le_bytes();
 
-
-    let mut data_ = vec![];
-
-    for _ in 0..1000 {
-        data_.extend(time);
-    }
-
     if let CallbackType::OnConnected = cb.r#type {
         let _ = conn.send_data(time.as_slice(), Kcp2KChannel::Unreliable);
     } else if let CallbackType::OnData = cb.r#type {
-        let _ = conn.send_data(data_.as_slice(), Kcp2KChannel::Reliable);
+        let _ = conn.send_data(time.as_slice(), Kcp2KChannel::Reliable);
     } else if let CallbackType::OnError = cb.r#type {}
 }
 

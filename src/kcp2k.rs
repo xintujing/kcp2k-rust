@@ -22,11 +22,7 @@ pub struct Kcp2K {
 impl Kcp2K {
     pub(crate) fn raw_receive_from(&self) -> Option<(SockAddr, Vec<u8>)> {
         // 1. 申请接收缓冲区（MTU）
-        let mut buf: Vec<MaybeUninit<u8>> = Vec::with_capacity(1500);
-
-        unsafe {
-            buf.set_len(1500); // 必须，recv_from 会写入整个 buf[..]
-        }
+        let mut buf: Vec<MaybeUninit<u8>> = Vec::with_capacity(self.config.mtu);
 
         // 2. 调用 socket2 recv_from（官方签名）
         let (size, addr) = match self.socket.recv_from(&mut buf) {
